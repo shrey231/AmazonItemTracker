@@ -109,7 +109,7 @@ file.close()
 
 items[:] = [x for x in items if x != "\n"]
 
-tracker = itemTracker("shreeisno1@gmail.com","awedragon",items)
+tracker = itemTracker("","",items)
 tracker.logIn()
 tracker.itemAvailability()
 tracker.addToCart()
