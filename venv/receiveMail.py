@@ -22,5 +22,6 @@ class receiveM:
         recent = inbox_item[-1]
         result2, email_data = mail.uid('fetch', recent, '(RFC822)')
         raw = email_data[0][1].decode("utf-8")
+        #fix
         msg = email.message_from_string(raw)
         return msg.get_payload()
