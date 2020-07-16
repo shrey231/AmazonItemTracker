@@ -7,7 +7,6 @@ import privateInfo
 emailAdd = privateInfo.botUsername
 password = privateInfo.botPassword
 server = 'imap.gmail.com'
-
 class receiveM:
     def receive(self):
         mail = imaplib.IMAP4_SSL(server,993)

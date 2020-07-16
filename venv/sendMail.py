@@ -29,4 +29,3 @@ class sendM:
         server.sendmail(username,username,message)
         server.quit()
 
-

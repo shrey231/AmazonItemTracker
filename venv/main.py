@@ -140,7 +140,6 @@ tracker = itemTracker(privateInfo.amazonUsername,privateInfo.amazonPassword,item
 tracker.itemAvailability()
 tracker.addToCart()
 
-
 tracker.driver.close()
 receive_mail = receiveM()
 mail_string = receive_mail.receive()
