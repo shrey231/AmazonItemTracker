@@ -144,7 +144,7 @@ tracker.addToCart()
 tracker.driver.close()
 receive_mail = receiveM()
 mail_string = receive_mail.receive()
-print(mail_string)
+
 
 send = sendM("These items were in Stock: "+str(tracker.inStock)+" while these were out of stock: "
 +str(tracker.notInStock))
