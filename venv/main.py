@@ -102,8 +102,11 @@ class itemTracker:
             with open('list.txt', "w") as file:
                 file.write(filedata)
 
-file = open('list.txt','r')
+
+
+file = open('list.txt','w+')
 items = file.readlines()
+print(items)
 tempItems =[]
 for item in items:
     tempItems.append(item)
@@ -139,9 +142,13 @@ tracker.addToCart()
 
 
 tracker.driver.close()
+receive_mail = receiveM()
+mail_string = receive_mail.receive()
+print(mail_string)
 
 send = sendM("These items were in Stock: "+str(tracker.inStock)+" while these were out of stock: "
 +str(tracker.notInStock))
 send.sending()
+
 
 tracker.inStock.clear()

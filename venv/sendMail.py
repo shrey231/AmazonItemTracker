@@ -21,7 +21,7 @@ class sendM:
         message['to'] = ', '.join(mailTo)
 
 
-        message = 'Subject: {}\n\n{}'.format('Amazon Item Bot',self.message)
+        message = 'Subject: {}\n\n{}'.format('Amazon Item Bot - OPEN',self.message)
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
         server.starttls()

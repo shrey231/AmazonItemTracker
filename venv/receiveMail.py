@@ -1,42 +1,26 @@
-import email
 import imaplib
-#https://humberto.io/blog/sending-and-receiving-emails-with-python/
+import base64
+import os
+import email
 #Take out privateInfo and input your own private information
 import privateInfo
-email = privateInfo.botUsername
+emailAdd = privateInfo.botUsername
 password = privateInfo.botPassword
-server = 'smtp-pulse.com'
+server = 'imap.gmail.com'
 
 class receiveM:
     def receive(self):
-        mail = imaplib.IMAP4_SSL(SERVER)
-        mail.login(EMAIL, PASSWORD)
+        mail = imaplib.IMAP4_SSL(server,993)
+        mail.login(emailAdd, password)
         mail.select('inbox')
 
-        status, data = mail.search(None, 'ALL')
-        mail_ids = []
-        for block in data:
-            mail_ids += block.split()
+        search_criteria = 'REVERSE DATE'
+        #mail.sort(search_criteria,'UTF-8','ALL')
 
-        for i in mail_ids:
-            status, data = mail.fetch(i, '(RFC822)')
-
-            for response_part in data:
-                if isinstance(response_part, tuple):
-                    message = email.message_from_bytes(response_part[1])
-
-                    mail_from = message['from']
-                    mail_subject = message['subject']
-
-                    if message.is_multipart():
-                        mail_content = ''
-                        for part in message.get_payload():
-                            if part.get_content_type() == 'text/plain':
-                                mail_content += part.get_payload()
-                    else:
-
-                        mail_content = message.get_payload()
-                    print(f'From: {mail_from}')
-                    print(f'Subject: {mail_subject}')
-                    print(f'Content: {mail_content}')
-        return mail_content
+        result, data = mail.uid('search',None,"ALL")
+        inbox_item = data[0].split()
+        recent = inbox_item[-1]
+        result2, email_data = mail.uid('fetch', recent, '(RFC822)')
+        raw = email_data[0][1].decode("utf-8")
+        msg = email.message_from_string(raw)
+        return msg.get_payload()
