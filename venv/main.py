@@ -7,12 +7,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
+from email.mime.text import MIMEText
 import collections
 from sendMail import sendM
 from receiveMail import receiveM
 #Take out privateInfo and input your own private information
 import privateInfo
 import json
+import os
+import email
 
 class itemTracker:
     items = []
@@ -104,7 +107,7 @@ class itemTracker:
 
 
 
-file = open('list.txt','w+')
+file = open('list.txt','r')
 items = file.readlines()
 print(items)
 tempItems =[]
@@ -129,9 +132,24 @@ if compare(tempItems,items)==False:
     for i in range(len(items)):
         file.write(items[i])
         file.write("\n")
+
+items = [x.replace('\n','')for x in items]
+
+receive_mail = receiveM()
+mail_string = receive_mail.receive()
+for message in str(mail_string[0]).splitlines():
+    if(message[:2]=="ht"):
+        if message not in items:
+            items.append(message)
+
+file = open('list.txt','w')
+for i in range(len(items)):
+    file.write(items[i])
+    file.write("\n")
 file.close()
 
 items[:] = [x for x in items if x != "\n"]
+
 print(items)
 #Input username and password
 tracker = itemTracker(privateInfo.amazonUsername,privateInfo.amazonPassword,items)
@@ -141,13 +159,11 @@ tracker.itemAvailability()
 tracker.addToCart()
 
 tracker.driver.close()
-receive_mail = receiveM()
-mail_string = receive_mail.receive()
 
-
-send = sendM("These items were in Stock: "+str(tracker.inStock)+" while these were out of stock: "
+send = sendM("These items were in stock: "+str(tracker.inStock)+" while these were out of stock: "
 +str(tracker.notInStock))
 send.sending()
+
 
 
 tracker.inStock.clear()
