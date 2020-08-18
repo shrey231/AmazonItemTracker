@@ -1,5 +1,5 @@
 # AmazonItemTracker
-When fully developed, will have the capability of private network compatibility to automatically log into Amazon using Webscraping and check if an out of stock item is in stock and automatcally add it to your Amazon cart. An email will be sent to your respective email address that tells you what is in and out of stock.
+Network compatibility to automatically log into Amazon using Webscraping and check if an out of stock item is in stock and automatcally add it to your Amazon cart. An email will be sent to your respective email address that tells you what is in and out of stock.
 ## Getting Started
 
 * You will need the following to get started:
